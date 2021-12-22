@@ -1,0 +1,26 @@
+version: "2"
+services:
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:8.3.3
+    restart: always
+    networks:
+      - traefik
+    volumes:
+      - grafana_data:/var/lib/grafana
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.grafana.rule: "Host(`grafana.lan`)"
+      traefik.http.routers.grafana.entryPoints: "web"
+      traefik.http.routers.grafana.service: "grafana"
+      traefik.http.services.grafana.loadbalancer.server.port: "3000"
+
+volumes:
+  grafana_data:
+    name: grafana_data
+
+networks:
+  traefik:
+    external:
+       name: traefik
