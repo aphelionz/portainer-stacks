@@ -1,0 +1,25 @@
+version: "2"
+
+networks:
+  traefik:
+    external:
+       name: traefik
+
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:v2.5
+    restart: always
+    command: ["traefik"]
+    environment:
+      - DREAMHOST_API_KEY
+    networks:
+      - traefik
+    ports:
+      - "8080:8080"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/traefik.toml:/etc/traefik/traefik.toml
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/letsencrypt/acme.json:/acme.json
