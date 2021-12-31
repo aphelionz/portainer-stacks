@@ -2,6 +2,7 @@ version: "3.3"
 
 services:
   mail:
+    container_name: plausible_mail
     image: bytemark/smtp
     restart: always
 
@@ -12,6 +13,7 @@ services:
       - 8899:8080
 
   plausible_db:
+    container_name: plausible_db
     image: postgres:12
     restart: always
     volumes:
@@ -20,6 +22,7 @@ services:
       - POSTGRES_PASSWORD
 
   plausible_events_db:
+    container_name: plausible_events_db
     image: yandex/clickhouse-server:21.3.2.5
     restart: always
     volumes:
@@ -32,6 +35,7 @@ services:
         hard: 262144
 
   plausible:
+    container_name: plausible_analytics
     image: plausible/analytics:latest
     restart: always
     networks:
