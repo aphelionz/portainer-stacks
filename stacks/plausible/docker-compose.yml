@@ -6,12 +6,6 @@ services:
     image: bytemark/smtp
     restart: always
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8899:8080
-
   plausible_db:
     container_name: plausible_db
     image: postgres:12
