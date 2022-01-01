@@ -8,7 +8,7 @@ version: '3'
 
 services:
   lychee_db:
-    container_name: lychee_db2
+    container_name: lychee_db
     image: mariadb:10
     environment:
       - MYSQL_ROOT_PASSWORD
@@ -20,18 +20,17 @@ services:
     volumes:
       - mysql:/var/lib/mysql
     networks:
-      - lychee
     restart: unless-stopped
 
   lychee:
     image: lycheeorg/lychee
-    container_name: lychee2
+    container_name: lychee
     volumes:
       - conf:/conf
       - uploads:/uploads
       - sym:/sym
     networks:
-      - lychee
+      - default
       - traefik
     environment:
       #- PUID=1000
@@ -89,7 +88,6 @@ services:
       traefik.http.routers.lychee.tls.certresolver: "letsencrypt"
       
 networks:
-  lychee:
   traefik:
     external: true
 
