@@ -4,6 +4,10 @@ services:
     image: registry:2.7
     container_name: registry
     restart: always
+    environment:
+      - REGISTRY_HTTP_ADDR=0.0.0.0:5000
+    volumes:
+      - registry:/var/lib/registry
     labels:
       traefik.enable: "true"
       traefik.http.routers.cr-http.entrypoints: "web"
@@ -17,3 +21,6 @@ services:
       traefik.http.services.cr.loadbalancer.server.port: "5000"
       traefik.http.routers.cr.tls: true
       traefik.http.routers.cr.tls.certresolver: "letsencrypt"
+
+volumes:
+  registry:
