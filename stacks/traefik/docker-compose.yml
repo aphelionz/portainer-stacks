@@ -14,7 +14,7 @@ services:
     environment:
       - DREAMHOST_API_KEY
     networks:
-      - traefik
+      - traefik-swarm
     ports:
       - "8080:8080"
       - "80:80"
