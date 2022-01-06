@@ -3,7 +3,7 @@ version: "3.5"
 networks:
   traefik:
     driver: overlay
-    network: traefik-swarm
+    name: traefik-swarm
 
 services:
   traefik:
