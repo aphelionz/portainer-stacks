@@ -18,11 +18,11 @@ services:
     expose: 
       - 3306
     volumes:
+      - mysql:/var/lib/mysql
     deploy:
       placement:
         constraints:
-          - node.labels.lychee.volumes == true
-      - mysql:/var/lib/mysql
+          - node.labels.lychee.volumes == true        
     restart: unless-stopped
 
   lychee:
