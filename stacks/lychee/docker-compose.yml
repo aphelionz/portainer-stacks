@@ -18,12 +18,20 @@ services:
     expose: 
       - 3306
     volumes:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.lychee.volumes == true
       - mysql:/var/lib/mysql
     restart: unless-stopped
 
   lychee:
     image: lycheeorg/lychee
     container_name: lychee
+    deploy:
+      placement:
+        constraints:
+          - node.labels.lychee.volumes == true
     volumes:
       - conf:/conf
       - uploads:/uploads
