@@ -42,7 +42,7 @@ services:
     restart: always
     networks:
       - default
-      - traefik
+      - traefik-swarm
     command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin && /entrypoint.sh run"
     depends_on:
       - plausible_db
@@ -70,7 +70,7 @@ services:
       traefik.http.routers.plausible.tls.certresolver: "letsencrypt"
 
 networks:
-  traefik:
+  traefik-swarm:
     external: true
 
 volumes:
