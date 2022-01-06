@@ -10,6 +10,10 @@ services:
     container_name: plausible_db
     image: postgres:12
     restart: always
+    deploy:
+      placement:
+        constraints:
+          - node.labels.plausible.volumes == true
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
@@ -19,6 +23,10 @@ services:
     container_name: plausible_events_db
     image: yandex/clickhouse-server:21.3.2.5
     restart: always
+    deploy:
+      placement:
+        constraints:
+          - node.labels.plausible.volumes == true
     volumes:
       - event-data:/var/lib/clickhouse
       - ./etc/clickhouse/clickhouse-config.xml:/etc/clickhouse-server/config.d/logging.xml:ro
