@@ -19,11 +19,12 @@ services:
       - "8080:8080"
       - "80:80"
       - "443:443"
-    placement:
-      constraints:
-        # Make the traefik service run only on the node with this label
-        # as the node with it has the volume for the certificates
-        - node.labels.traefik-public.traefik-public-certificates == true
+    deploy:
+      placement:
+        constraints:
+          # Make the traefik service run only on the node with this label
+          # as the node with it has the volume for the certificates
+          - node.labels.traefik-public.traefik-public-certificates == true
     volumes:
       - /etc/traefik.toml:/etc/traefik/traefik.toml
       - /var/run/docker.sock:/var/run/docker.sock
