@@ -66,7 +66,7 @@ services:
       traefik.http.routers.plausible.entryPoints: "websecure"
       traefik.http.routers.plausible.service: "plausible"
       traefik.http.services.plausible.loadbalancer.server.port: "8000"
-      traefik.http.routers.plausible.tls: true
+      traefik.http.routers.plausible.tls: "true"
       traefik.http.routers.plausible.tls.certresolver: "letsencrypt"
 
 networks:
