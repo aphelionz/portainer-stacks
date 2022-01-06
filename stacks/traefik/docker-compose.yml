@@ -7,14 +7,13 @@ networks:
 
 services:
   traefik:
-    container_name: traefik
     image: traefik:v2.6
     restart: always
     command: ["traefik"]
     environment:
       - DREAMHOST_API_KEY
     networks:
-      - traefik-swarm
+      - traefik
     ports:
       - "8080:8080"
       - "80:80"
