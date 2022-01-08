@@ -7,6 +7,10 @@ services:
     restart: always
     networks:
       - traefik
+    deploy:
+      placement:
+        constraints:
+          - node.labels.grafana.volumes == true
     volumes:
       - grafana_data:/var/lib/grafana
     labels:
@@ -20,6 +24,5 @@ volumes:
   grafana_data:
 
 networks:
-  traefik:
-    external:
-       name: traefik
+  traefik-swarm:
+    external: true
