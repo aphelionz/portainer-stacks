@@ -4,6 +4,23 @@ services:
     image: fjudith/draw.io:alpine
     networks:
       - traefik-swarm
+    deploy:
+      placement:
+        constraints:
+          - node.labels.public == true
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.draw-io-http.entrypoints: "web"
+      traefik.http.routers.draw-io-http.rule: "Host(`draw.mrh.io`)"
+      traefik.http.routers.draw-io-http.middlewares: "draw-io-https"
+      traefik.http.middlewares.draw-io-https.redirectscheme.scheme: "https"
+
+      traefik.http.routers.draw-io.rule: "Host(`draw.mrh.io`)"
+      traefik.http.routers.draw-io.entryPoints: "websecure"
+      traefik.http.routers.draw-io.service: "draw-io"
+      traefik.http.services.draw-io.loadbalancer.server.port: "8080"
+      traefik.http.routers.draw-io.tls: "true"
+      traefik.http.routers.draw-io.tls.certresolver: "letsencrypt"
 
 networks:
   traefik-swarm:
