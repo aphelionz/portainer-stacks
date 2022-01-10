@@ -1,0 +1,67 @@
+version: "3"
+
+services:
+  server:
+    image: gitea/gitea:1.15.9
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE
+      - GITEA__database__HOST=giteadb:5432
+      - GITEA__database__NAME
+      - GITEA__database__USER
+      - GITEA__database__PASSWD
+    restart: always
+    networks:
+      - traefik-swarm
+      - default
+    volumes:
+      - gitea_data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    deploy:
+      placement:
+        constraints:
+          - node.labels.coderepos == true
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.gitea-http.entrypoints: "web"
+      traefik.http.routers.gitea-http.rule: "Host(`code.mrh.io`)"
+      traefik.http.routers.gitea-http.middlewares: "gitea-https"
+      traefik.http.middlewares.gitea-https.redirectscheme.scheme: "https"
+
+      traefik.http.routers.gitea.rule: "Host(`code.mrh.io`)"
+      traefik.http.routers.gitea.entryPoints: "websecure"
+      traefik.http.routers.gitea.service: "gitea"
+      traefik.http.services.gitea.loadbalancer.server.port: "3000"
+      traefik.http.routers.gitea.tls: "true"
+      traefik.http.routers.gitea.tls.certresolver: "letsencrypt"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14.1
+    restart: always
+    deploy:
+      placement:
+        constraints:
+          - node.labels.coderepos == true
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    networks:
+      default:
+        aliases:
+          - giteadb
+    volumes:
+      - gitea_db:/var/lib/postgresql/data
+
+volumes:
+  gitea_data:
+  gitea_db:
+
+networks:
+  traefik-swarm:
+    external: true
