@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   draw-io:
-    image: fjudith/draw.io:alpine
+    image: fjudith/draw.io:11.3.1-alpine
     networks:
       - traefik-swarm
     deploy:
