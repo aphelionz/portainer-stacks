@@ -10,7 +10,7 @@ services:
     deploy:
       placement:
         constraints:
-          - node.labels.grafana.volumes == true
+          - node.labels.metrics == true
     volumes:
       - grafana_data:/var/lib/grafana
     labels:
