@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  draw-io:
+    image: fjudith/draw.io:alpine
+    networks:
+      - traefik-swarm
+
+networks:
+  traefik-swarm:
+    external: true
