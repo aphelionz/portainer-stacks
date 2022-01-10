@@ -13,7 +13,7 @@ services:
     deploy:
       placement:
         constraints:
-          - node.labels.plausible.volumes == true
+          - node.labels.metrics == true
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
@@ -26,7 +26,7 @@ services:
     deploy:
       placement:
         constraints:
-          - node.labels.plausible.volumes == true
+          - node.labels.metrics == true
     volumes:
       - event-data:/var/lib/clickhouse
       # - ./etc/clickhouse/clickhouse-config.xml:/etc/clickhouse-server/config.d/logging.xml:ro
@@ -40,6 +40,10 @@ services:
     container_name: plausible_analytics
     image: plausible/analytics:latest
     restart: always
+    deploy:
+      placement:
+        constraints:
+          - node.labels.metrics == true
     networks:
       - default
       - traefik-swarm
