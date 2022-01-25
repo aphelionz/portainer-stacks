@@ -1,0 +1,61 @@
+version: "3.7"
+services:
+  geth:
+    image: ethereum/client-go:v1.10.15
+    ports:
+      - "${GETH_NETWORK_PORT:-30303}:30303"
+      - "${GETH_METRICS_PORT:-6060}:6060"
+    entrypoint: >
+      geth --${GETH_NETWORK:-mainnet} --port ${GETH_NETWORK_PORT:-30303}
+           --http --http.addr 0.0.0.0 --http.port ${GETH_HTTP_RPC_PORT:-8545}
+           --ws --ws.addr 0.0.0.0 --ws.port ${GETH_WS_RPC_PORT:-8546}
+           --pprof --pprof.addr 0.0.0.0 --pprof.port ${GETH_METRICS_PORT:-6060}
+    deploy:
+      placement:
+        constraints:
+          - node.labels.chaindata == true
+    volumes:
+      - geth_data:/root/.ethereum
+    healthcheck:
+      test: >
+        wget --no-cache -S -O-
+        --header "Content-Type: application/json"
+        --post-data='{"jsonrpc":2.0,"method":"web3_clientVersion","params":[],"id":1}'
+        0.0.0.0:${GETH_HTTP_RPC_PORT:-8545}
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+
+  nimbus_beacon_node:
+    image: statusim/nimbus-eth2:amd64-latest
+    restart: unless-stopped
+    stop_grace_period: 1m
+    deploy:
+      labels:
+        prometheus-job: nimbus
+      placement:
+        constraints:
+          - node.labels.chaindata == true
+    ports:
+      - 8008:8008
+      - 9000:9000/tcp
+      - 9000:9000/udp
+    volumes:
+      - nibmus_data:/home/user/nimbus-eth2/build/data
+    command: >-
+      --network=prater --tcp-port=9000 --udp-port=9000 --enr-auto-update
+      --data-dir=/home/user/nimbus-eth2/build/data/shared_prater_0
+      --web3-url=ws://geth-${GETH_NETWORK:-mainnet}:${GETH_WS_RPC_PORT:-8546}
+      --nat=extip:${NIMBUS_EXTERNAL_IP} --log-level=${NIMBUS_LOG_LEVEL:-INFO}
+      --metrics --metrics-address=0.0.0.0 --metrics-port=8008
+
+volumes:
+  geth_data:
+    name: geth-${GETH_NETWORK:-mainnet}-data
+  nibmus_data:
+    name: nimbus-prater-data
+
+networks:
+  traefik-swarm:
+    external: true
