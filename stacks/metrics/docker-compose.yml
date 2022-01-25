@@ -78,7 +78,7 @@ services:
       labels:
         prometheus-job: beaconchain
         prometheus-port: 9184
-    image: eqlabs/beaconchain-prometheus-exporter:v0.0.5
+    image: eqlabs/beaconchain-prometheus-exporter:v0.0.6
     environment:
       - ROOT_URL
       - VALIDATOR_INDEX
