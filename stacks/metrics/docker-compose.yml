@@ -44,15 +44,13 @@ services:
           - prometheus
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    # configs:
-    #   - source: prometheus.yml
-    #     target: /etc/prometheus/prometheus.yml
+    configs:
+      - source: prometheus.yml
+        target: /etc/prometheus/prometheus.yml
     deploy:
       placement:
         constraints:
           - node.labels.metrics == true
-    # extra_hosts:
-    #   - "host.docker.internal:host-gateway"
     ports:
       - 9090:9090
 
