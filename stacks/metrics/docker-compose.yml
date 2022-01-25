@@ -17,7 +17,6 @@ services:
 
   node_exporter:
     image: quay.io/prometheus/node-exporter:latest
-    container_name: node_exporter
     deploy:
       mode: global
       labels:
@@ -39,7 +38,6 @@ services:
     image: prom/prometheus
     user: root
     networks:
-      geth:
       traefik-swarm:
       default:
         aliases:
