@@ -39,7 +39,6 @@ services:
         constraints:
           - node.labels.chaindata == true
     ports:
-      - 8008:8008
       - 9000:9000/tcp
       - 9000:9000/udp
     volumes:
