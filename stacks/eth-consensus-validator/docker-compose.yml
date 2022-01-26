@@ -53,6 +53,18 @@ services:
       --nat=extip:${NIMBUS_EXTERNAL_IP} --log-level=${NIMBUS_LOG_LEVEL:-INFO}
       --metrics --metrics-address=0.0.0.0 --metrics-port=8008
 
+  prysm:
+    volumes:
+      - prysm_data:/data
+    ports:
+      - 4000:4000
+      - 13000:13000
+      - 12000:12000/udp
+    image: gcr.io/prysmaticlabs/prysm/beacon-chain:stable
+    command: >-
+      --datadir=/data --clear-db --rpc-host=0.0.0.0 --monitoring-host=0.0.0.0
+      --http-web3provider=ws://geth:${GETH_WS_RPC_PORT:-8546}
+
 networks:
   metrics:
     external: true
@@ -63,3 +75,5 @@ volumes:
     name: geth-${GETH_NETWORK:-mainnet}-data
   nibmus_data:
     name: nimbus-prater-data
+  prysm_data:
+    name: prysm-prater-data
