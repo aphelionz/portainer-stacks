@@ -53,6 +53,21 @@ services:
       --nat=extip:${NIMBUS_EXTERNAL_IP} --log-level=${NIMBUS_LOG_LEVEL:-INFO}
       --metrics --metrics-address=0.0.0.0 --metrics-port=8008
 
+  teku:
+    image: consensys/teku:latest
+    command: >-
+      --network=prater --eth1-endpoint=http://geth:${GETH_HTTP_RPC_PORT:-8545}
+      --data-path=/var/lib/teku --log-destination=CONSOLE
+    # ports:
+      # - 9000:9000
+      # - 5051:5051
+    environment:
+      - TEKU_REST_API_ENABLED=true
+      - TEKU_P2P_PORT=9000
+    volumes:
+      - teku_data:/var/lib/teku
+  # --validator-keys=/var/lib/teku/validator/keys:/var/lib/teku/validator/passwords
+
   prysm:
     volumes:
       - prysm_data:/data
@@ -79,3 +94,5 @@ volumes:
     name: nimbus-prater-data
   prysm_data:
     name: prysm-prater-data
+  teku_data:
+    name: teku-prater-data
