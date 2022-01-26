@@ -56,6 +56,7 @@ services:
   prysm:
     volumes:
       - prysm_data:/data
+      - /etc/prysm/genesis.ssz:/genesis/genesis.ssz
     ports:
       - 4000:4000
       - 13000:13000
@@ -63,8 +64,8 @@ services:
     image: gcr.io/prysmaticlabs/prysm/beacon-chain:stable
     command: >-
       --datadir=/data --clear-db --rpc-host=0.0.0.0 --monitoring-host=0.0.0.0
-      --http-web3provider=ws://geth:${GETH_WS_RPC_PORT:-8546}
-      --accept-terms-of-use
+      --http-web3provider=ws://geth:${GETH_WS_RPC_PORT:-8546} --prater
+      --accept-terms-of-use --genesis-state=/genesis/genesis.ssz
 
 networks:
   metrics:
