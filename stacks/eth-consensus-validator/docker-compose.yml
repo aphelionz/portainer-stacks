@@ -31,6 +31,9 @@ services:
     image: statusim/nimbus-eth2:amd64-latest
     restart: unless-stopped
     stop_grace_period: 1m
+    networks:
+      - default
+      - metrics
     deploy:
       labels:
         prometheus-job: nimbus
@@ -49,6 +52,11 @@ services:
       --web3-url=ws://geth:${GETH_WS_RPC_PORT:-8546}
       --nat=extip:${NIMBUS_EXTERNAL_IP} --log-level=${NIMBUS_LOG_LEVEL:-INFO}
       --metrics --metrics-address=0.0.0.0 --metrics-port=8008
+
+networks:
+  metrics:
+    external: true
+    name: metrics_default
 
 volumes:
   geth_data:
