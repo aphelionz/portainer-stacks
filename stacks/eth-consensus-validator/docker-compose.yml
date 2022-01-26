@@ -64,6 +64,7 @@ services:
     command: >-
       --datadir=/data --clear-db --rpc-host=0.0.0.0 --monitoring-host=0.0.0.0
       --http-web3provider=ws://geth:${GETH_WS_RPC_PORT:-8546}
+      --accept-terms-of-use
 
 networks:
   metrics:
