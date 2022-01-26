@@ -10,6 +10,7 @@ services:
            --http --http.addr 0.0.0.0 --http.port ${GETH_HTTP_RPC_PORT:-8545}
            --ws --ws.addr 0.0.0.0 --ws.port ${GETH_WS_RPC_PORT:-8546}
            --pprof --pprof.addr 0.0.0.0 --pprof.port ${GETH_METRICS_PORT:-6060}
+           --http.vhosts=* --http.corsdomain=*
     deploy:
       placement:
         constraints:
