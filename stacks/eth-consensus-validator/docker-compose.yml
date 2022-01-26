@@ -65,7 +65,7 @@ services:
     command: >-
       --datadir=/data --clear-db --rpc-host=0.0.0.0 --monitoring-host=0.0.0.0
       --http-web3provider=ws://geth:${GETH_WS_RPC_PORT:-8546} --prater
-      --accept-terms-of-use --genesis-state=/genesis/genesis.ssz
+      --accept-terms-of-use --genesis-state=/genesis/genesis.ssz --force-clear-db
 
 networks:
   metrics:
