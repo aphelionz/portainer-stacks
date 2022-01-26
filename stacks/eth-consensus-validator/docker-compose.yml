@@ -29,7 +29,7 @@ services:
       start_period: 30s
 
   nimbus_beacon_node:
-    image: statusim/nimbus-eth2:amd64-latest
+    image: statusim/nimbus-eth2:amd64-v1.6.0
     restart: unless-stopped
     stop_grace_period: 1m
     networks:
