@@ -28,6 +28,30 @@ services:
       retries: 5
       start_period: 30s
 
+  lighthouse:
+    image: sigp/lighthouse:v2.1.0
+    volumes:
+        - lighthouse_data:/root/.lighthouse
+        - /etc/lighthouse/scripts:/root/scripts:ro
+    # command: sh /root/scripts/start-beacon-node.sh
+    restart: on-failure
+    command: >-
+      lighthouse
+        --debug-level=${DEBUG_LEVEL-info}
+        --network=${NETWORK-prater}
+        beacon_node
+        --eth1-endpoints=http://geth:${GETH_WS_RPC_PORT:-8545}
+        --http
+        --http-address 0.0.0.0
+    environment:
+      - NETWORK=prater
+    # ports:
+    #     - 5052:5052/tcp
+    #     - 5053:5053/tcp
+    #     - 5054:5054/tcp     # metrics endpoint
+    #     - 9000:9000/tcp
+    #     - 9000:9000/udp
+
   nimbus_beacon_node:
     image: statusim/nimbus-eth2:amd64-v1.6.0
     restart: unless-stopped
@@ -91,6 +115,8 @@ networks:
 volumes:
   geth_data:
     name: geth-${GETH_NETWORK:-mainnet}-data
+  lighthouse_data:
+    name: lighthouse-prater-data
   nibmus_data:
     name: nimbus-prater-data
   prysm_data:
