@@ -73,16 +73,6 @@ services:
       - /var/lib/docker:/var/lib/docker:ro
     command: -docker_only
 
-  beaconchain_exporter:
-    deploy:
-      labels:
-        prometheus-job: beaconchain
-        prometheus-port: 9184
-    image: eqlabs/beaconchain-prometheus-exporter:v0.0.7
-    environment:
-      - ROOT_URL
-      - VALIDATOR_INDEX
-
 volumes:
   grafana_data:
 
