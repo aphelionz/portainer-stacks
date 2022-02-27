@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  nominatim:
+    container_name: nominatim
+    image: mediagis/nominatim:3.7
+    shm_size: "1g"
+    environment:
+      - PBF_URL=https://download.geofabrik.de/europe/monaco-latest.osm.pbf
+      - REPLICATION_URL=https://download.geofabrik.de/europe/monaco-updates/
+      - IMPORT_WIKIPEDIA=false
+      - NOMINATIM_PASSWORD
+      - nominatim-data:/var/lib/postgresql/12/main
+      - 8080:8080
