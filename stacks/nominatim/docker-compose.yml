@@ -6,9 +6,11 @@ services:
     image: mediagis/nominatim:3.7
     shm_size: "1g"
     environment:
-      - PBF_URL=https://download.geofabrik.de/europe/monaco-latest.osm.pbf
-      - REPLICATION_URL=https://download.geofabrik.de/europe/monaco-updates/
-      - IMPORT_WIKIPEDIA=false
+      - PBF_URL=https://download.geofabrik.de/north-america-latest.osm.pbf
+      - REPLICATION_URL=https://download.geofabrik.de/north-america-updates/
+      - IMPORT_WIKIPEDIA=true
+      - IMPORT_US_POSTCODES=true
+      - IMPORT_GB_POSTCODES=true
       - NOMINATIM_PASSWORD
     volumes:
       - nominatim_data:/var/lib/postgresql/12/main
