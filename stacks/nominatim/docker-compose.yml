@@ -13,7 +13,7 @@ services:
     volumes:
       - nominatim_data:/var/lib/postgresql/12/main
     ports:
-      - 8080:8080
+      - 8085:8080
 
 volumes:
   nominatim_data:
