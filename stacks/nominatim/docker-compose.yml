@@ -4,7 +4,7 @@ services:
   nominatim:
     container_name: nominatim
     image: mediagis/nominatim:3.7
-    shm_size: "4g"
+    shm_size: "10g"
     environment:
       - PBF_URL=https://download.geofabrik.de/north-america-latest.osm.pbf
       - REPLICATION_URL=https://download.geofabrik.de/north-america-updates/
