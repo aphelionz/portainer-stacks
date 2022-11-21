@@ -56,7 +56,7 @@ services:
       - 9090:9090
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.43.0
+    image: gcr.io/cadvisor/cadvisor:v0.46.0
     networks:
       - traefik-swarm
       - default
