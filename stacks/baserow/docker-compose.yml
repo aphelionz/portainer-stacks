@@ -1,0 +1,23 @@
+version: "3"
+ 
+services:
+  server:
+    image:  baserow/baserow:1.13.1
+    container_name: baserow
+    environment:
+      - BASEROW_PUBLIC_URL=http://baserow
+    restart: unless-stopped
+    networks:
+      - traefik-swarm
+      - default
+    volumes:
+      - baserow_data:/baserow/data
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.baserow.entrypoints: web
+      traefik.http.routers.baserow.rule: "Host(`baserow`)"
+      traefik.http.routers.baserow.service: baserow
+      traefik.http.services.baserow.loadbalancer.server.port: 3000
+
+volumes:
+  baserow_data:
