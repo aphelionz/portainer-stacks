@@ -19,3 +19,7 @@ services:
 
 volumes:
   baserow_data:
+
+networks:
+  traefik-swarm:
+    external: true
