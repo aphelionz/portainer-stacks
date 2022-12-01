@@ -21,6 +21,7 @@ services:
     image: gristlabs/grist
     environment:
       - GRIST_SESSION_SECRET
+      - APP_HOME_URL="http://grist"
     networks:
       - traefik-swarm
       - default
