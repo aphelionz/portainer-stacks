@@ -15,7 +15,7 @@ services:
       traefik.http.routers.baserow.entrypoints: web
       traefik.http.routers.baserow.rule: "Host(`baserow`)"
       traefik.http.routers.baserow.service: baserow
-      traefik.http.services.baserow.loadbalancer.server.port: 3000
+      traefik.http.services.baserow.loadbalancer.server.port: 80
 
 volumes:
   baserow_data:
