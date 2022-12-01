@@ -17,8 +17,25 @@ services:
       traefik.http.routers.baserow.service: baserow
       traefik.http.services.baserow.loadbalancer.server.port: 80
 
+  grist:
+    image: gristlabs/grist
+    environment:
+      - GRIST_SESSION_SECRET
+    networks:
+      - traefik-swarm
+      - default
+    volumes:
+      - grist_data:/persist
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.grist.entrypoints: web
+      traefik.http.routers.grist.rule: "Host(`grist`)"
+      traefik.http.routers.grist.service: grist
+      traefik.http.services.grist.loadbalancer.server.port: 8484
+      
 volumes:
   baserow_data:
+  grist_data:
 
 networks:
   traefik-swarm:
