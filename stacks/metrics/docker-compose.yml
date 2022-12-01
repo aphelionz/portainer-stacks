@@ -54,7 +54,7 @@ services:
       traefik.http.routers.prometheus.entrypoints: web
       traefik.http.routers.prometheus.rule: "Host(`prometheus`)"
       traefik.http.routers.prometheus.service: prometheus
-      traefik.http.services.prometheus.loadbalancer.server.port: 3000
+      traefik.http.services.prometheus.loadbalancer.server.port: 9090
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     configs:
