@@ -5,6 +5,12 @@ services:
     ports:
       - 3000:3000
     restart: always
+    labels:
+      traefik.enable: true
+      traefik.http.routers.grafana.entrypoints: web
+      traefik.http.routers.grafana.rule: "Host(`grafana`)"
+      traefik.http.routers.grafana.service: grafana
+      traefik.http.services.grafana.loadbalancer.server.port: 3000
     networks:
       - traefik-swarm
       - default
@@ -43,6 +49,12 @@ services:
       default:
         aliases:
           - prometheus
+    labels:
+      traefik.enable: true
+      traefik.http.routers.prometheus.entrypoints: web
+      traefik.http.routers.prometheus.rule: "Host(`prometheus`)"
+      traefik.http.routers.prometheus.service: prometheus
+      traefik.http.services.prometheus.loadbalancer.server.port: 3000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     configs:
