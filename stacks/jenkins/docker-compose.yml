@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk11
+    volumes:
+      - jenkins_data:/var/jenkins/home
+    ports:
+      - 50000:50000
+    networks:
+      - default
+      - traefik-swarm
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.jenkins.entrypoints: web
+      traefik.http.routers.jenkins.rule: "Host(`jenkins`)"
+      traefik.http.routers.jenkins.service: jenkins
+      traefik.http.services.jenkins.loadbalancer.server.port: 8080
+
+volumes:
+  jenkins_data:
+
+networks:
+  traefik-swarm:
+    external: true
