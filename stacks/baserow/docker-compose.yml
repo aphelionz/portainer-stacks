@@ -1,8 +1,22 @@
 version: "3"
  
 services:
+  nocodb:
+    image: nocodb/nocodb:latest
+    networks:
+      - traefik-swarm
+      - default
+    volumes:
+      - nocodb_data:/usr/app/data/
+  labels:
+      traefik.enable: "true"
+      traefik.http.routers.nocodb.entrypoints: web
+      traefik.http.routers.nocodb.rule: "Host(`nocodb`)"
+      traefik.http.routers.nocodb.service: nocodb
+      traefik.http.services.nocodb.loadbalancer.server.port: 8080
+
   server:
-    image:  baserow/baserow:1.13.1
+    image: baserow/baserow:1.13.1
     environment:
       - BASEROW_PUBLIC_URL=http://baserow
     networks:
@@ -38,6 +52,7 @@ services:
 volumes:
   baserow_data:
   grist_data:
+  nocodb_data:
 
 networks:
   traefik-swarm:
