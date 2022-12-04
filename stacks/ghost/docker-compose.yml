@@ -24,7 +24,7 @@ services:
       traefik.http.routers.ghost.entrypoints: web
       traefik.http.routers.ghost.rule: "Host(`ghost`)"
       traefik.http.routers.ghost.service: ghost
-      traefik.http.services.ghost.loadbalancer.server.port: 8080
+      traefik.http.services.ghost.loadbalancer.server.port: 2368
 
   db:
     image: mysql:8.0
