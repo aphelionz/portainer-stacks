@@ -38,7 +38,7 @@ services:
 
   plausible:
     container_name: plausible_analytics
-    image: plausible/analytics:latest
+    image: plausible/analytics:v1.4
     restart: always
     deploy:
       placement:
