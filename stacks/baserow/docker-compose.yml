@@ -1,20 +1,6 @@
 version: "3"
  
 services:
-  nocodb:
-    image: nocodb/nocodb:latest
-    networks:
-      - traefik-swarm
-      - default
-    volumes:
-      - nocodb_data:/usr/app/data/
-    labels:
-      traefik.enable: "true"
-      traefik.http.routers.nocodb.entrypoints: web
-      traefik.http.routers.nocodb.rule: "Host(`nocodb`)"
-      traefik.http.routers.nocodb.service: nocodb
-      traefik.http.services.nocodb.loadbalancer.server.port: 8080
-
   grist:
     image: gristlabs/grist
     environment:
@@ -35,7 +21,6 @@ services:
       
 volumes:
   grist_data:
-  nocodb_data:
 
 networks:
   traefik-swarm:
