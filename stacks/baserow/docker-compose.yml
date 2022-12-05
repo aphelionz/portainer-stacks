@@ -34,7 +34,6 @@ services:
       traefik.http.services.grist.loadbalancer.server.port: 8484
       
 volumes:
-  baserow_data:
   grist_data:
   nocodb_data:
 
