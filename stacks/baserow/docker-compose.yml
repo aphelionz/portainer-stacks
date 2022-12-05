@@ -15,22 +15,6 @@ services:
       traefik.http.routers.nocodb.service: nocodb
       traefik.http.services.nocodb.loadbalancer.server.port: 8080
 
-  server:
-    image: baserow/baserow:1.13.1
-    environment:
-      - BASEROW_PUBLIC_URL=http://baserow
-    networks:
-      - traefik-swarm
-      - default
-    volumes:
-      - baserow_data:/baserow/data
-    labels:
-      traefik.enable: "true"
-      traefik.http.routers.baserow.entrypoints: web
-      traefik.http.routers.baserow.rule: "Host(`baserow`)"
-      traefik.http.routers.baserow.service: baserow
-      traefik.http.services.baserow.loadbalancer.server.port: 80
-
   grist:
     image: gristlabs/grist
     environment:
