@@ -15,8 +15,6 @@ services:
       - DB_DATABASE
     volumes:
       - bookstack_data:/config
-    ports:
-      - 6875:80
     restart: unless-stopped
     depends_on:
       - bookstack_db
@@ -25,7 +23,7 @@ services:
       traefik.http.routers.bookstack.entrypoints: web
       traefik.http.routers.bookstack.rule: "Host(`bookstack`)"
       traefik.http.routers.bookstack.service: bookstack
-      traefik.http.services.bookstack.loadbalancer.server.port: 8484
+      traefik.http.services.bookstack.loadbalancer.server.port: 6875
       
       
   bookstack_db:
