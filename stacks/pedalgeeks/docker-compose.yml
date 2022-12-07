@@ -15,6 +15,19 @@ services:
       # this yaml and uncomment the following line and use compose to restart
       # the mediawiki service. Do this with configs.
       # - ./LocalSettings.php:/var/www/html/LocalSettings.php
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.pedalgeeks-iki-http.entrypoints: "web"
+      traefik.http.routers.pedalgeeks-wiki-http.rule: "Host(`wiki.pedalgeeks.co`)"
+      traefik.http.routers.pedalgeeks-wiki-http.middlewares: "pedalgeeks-wiki-https"
+      traefik.http.middlewares.pedalgeeks-wiki-https.redirectscheme.scheme: "https"
+
+      traefik.http.routers.pedalgeeks-wiki.rule: "Host(`wiki.pedalgeeks.co`)"
+      traefik.http.routers.pedalgeeks-wiki.entryPoints: "websecure"
+      traefik.http.routers.pedalgeeks-wiki.service: "pedalgeeks-wiki"
+      traefik.http.services.pedalgeeks-wiki.loadbalancer.server.port: "8080"
+      traefik.http.routers.pedalgeeks-wiki.tls: "true"
+      traefik.http.routers.pedalgeeks-wiki.tls.certresolver: "letsencrypt"
 
   database:
     image: mariadb
