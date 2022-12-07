@@ -25,7 +25,7 @@ services:
       traefik.http.routers.pedalgeeks-wiki.rule: "Host(`wiki.pedalgeeks.co`)"
       traefik.http.routers.pedalgeeks-wiki.entryPoints: "websecure"
       traefik.http.routers.pedalgeeks-wiki.service: "pedalgeeks-wiki"
-      traefik.http.services.pedalgeeks-wiki.loadbalancer.server.port: "8080"
+      traefik.http.services.pedalgeeks-wiki.loadbalancer.server.port: "80"
       traefik.http.routers.pedalgeeks-wiki.tls: "true"
       traefik.http.routers.pedalgeeks-wiki.tls.certresolver: "letsencrypt"
 
