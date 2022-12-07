@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  mediawiki:
+    image: mediawiki:1.39.0
+    restart: always
+    networks:
+      - traefik-swarm
+      - default
+    links:
+      - database
+    volumes:
+      - mediawiki_images:/var/www/html/images
+      # After initial setup, download LocalSettings.php to the same directory as
+      # this yaml and uncomment the following line and use compose to restart
+      # the mediawiki service. Do this with configs.
+      # - ./LocalSettings.php:/var/www/html/LocalSettings.php
+
+  database:
+    image: mariadb
+    restart: always
+    environment:
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_RANDOM_ROOT_PASSWORD
+    volumes:
+      - pedalgeeks_mediawiki_db:/var/lib/mysql
+
+volumes:
+  mediawiki_images:
+  pedalgeeks_mediawiki_db:
+  
+networks:
+  traefik-swarm:
+    external: true
