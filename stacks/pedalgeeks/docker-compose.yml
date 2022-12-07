@@ -17,7 +17,7 @@ services:
       # - ./LocalSettings.php:/var/www/html/LocalSettings.php
     labels:
       traefik.enable: "true"
-      traefik.http.routers.pedalgeeks-iki-http.entrypoints: "web"
+      traefik.http.routers.pedalgeeks-wiki-http.entrypoints: "web"
       traefik.http.routers.pedalgeeks-wiki-http.rule: "Host(`wiki.pedalgeeks.co`)"
       traefik.http.routers.pedalgeeks-wiki-http.middlewares: "pedalgeeks-wiki-https"
       traefik.http.middlewares.pedalgeeks-wiki-https.redirectscheme.scheme: "https"
