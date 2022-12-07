@@ -11,10 +11,9 @@ services:
       - database
     volumes:
       - mediawiki_images:/var/www/html/images
-      # After initial setup, download LocalSettings.php to the same directory as
-      # this yaml and uncomment the following line and use compose to restart
-      # the mediawiki service. Do this with configs.
-      # - ./LocalSettings.php:/var/www/html/LocalSettings.php
+    configs:
+      - source: pedalgeeks-LocalSettings.php
+        target: /var/www/html/LocalSettings.php
     labels:
       traefik.enable: "true"
       traefik.http.routers.pedalgeeks-wiki-http.entrypoints: "web"
@@ -46,4 +45,8 @@ volumes:
   
 networks:
   traefik-swarm:
+    external: true
+    
+configs:
+  pedalgeeks-LocalSettings.php:
     external: true
