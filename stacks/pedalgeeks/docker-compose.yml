@@ -11,6 +11,7 @@ services:
       - database
     volumes:
       - mediawiki_images:/var/www/html/images
+      - mediawiki_extensions:/var/www/html/extensions
     configs:
       - source: pedalgeeks-LocalSettings.php
         target: /var/www/html/LocalSettings.php
@@ -41,6 +42,7 @@ services:
 
 volumes:
   mediawiki_images:
+  mediawiki_extensions:
   pedalgeeks_mediawiki_db:
   
 networks:
