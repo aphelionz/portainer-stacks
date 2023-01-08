@@ -31,7 +31,7 @@ services:
       traefik.enable: "true"
       traefik.http.routers.pedalgeeks-wp-http.entrypoints: "web"
       traefik.http.routers.pedalgeeks-wp-http.rule: "Host(`pedalgeeks.co`)"
-      traefik.http.routers.pedalgeeks-wp-http.middlewares: "pedalgeeks--https"
+      traefik.http.routers.pedalgeeks-wp-http.middlewares: "pedalgeeks-wp-https"
       traefik.http.middlewares.pedalgeeks-wp-https.redirectscheme.scheme: "https"
 
       traefik.http.routers.pedalgeeks-wp.rule: "Host(`pedalgeeks.co`)"
