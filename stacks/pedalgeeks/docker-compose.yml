@@ -1,6 +1,33 @@
 version: '3.3'
 
 services:
+  wordpress-db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_RANDOM_ROOT_PASSWORD
+    volumes:
+      - wordpress_db:/var/lib/mysql
+
+  wordpress:
+    depends_on:
+      - wordpress_db
+    image: wordpress:6.1.1-fpm-alpine
+    restart: always
+    networks:
+      - traefik-swarm
+      - default
+    environment:
+      - WORDPRESS_DB_HOST
+      - WORDPRESS_DB_USER
+      - WORDPRESS_DB_PASSWORD
+      - WORDPRESS_DB_NAME
+    volumes:
+      - wordpress:/var/www/html
+
   mediawiki:
     image: mediawiki:1.39.0
     restart: always
@@ -41,14 +68,16 @@ services:
       - pedalgeeks_mediawiki_db:/var/lib/mysql
 
 volumes:
+  wordpress:
   mediawiki_images:
   mediawiki_extensions:
   pedalgeeks_mediawiki_db:
-  
+  wordpress_db:
+
 networks:
   traefik-swarm:
     external: true
-    
+
 configs:
   pedalgeeks-LocalSettings.php:
     external: true
