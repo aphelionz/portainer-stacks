@@ -1,7 +1,7 @@
 version: '3.3'
 
 services:
-  wordpress-db:
+  wordpress_db:
     image: mysql:5.7
     restart: always
     environment:
