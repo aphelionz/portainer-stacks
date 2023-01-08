@@ -15,7 +15,7 @@ services:
   wordpress:
     depends_on:
       - wordpress_db
-    image: wordpress:6.1.1-fpm-alpine
+    image: wordpress:6.1.1
     restart: always
     networks:
       - traefik-swarm
