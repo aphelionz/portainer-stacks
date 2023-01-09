@@ -25,9 +25,9 @@ services:
       traefik.http.services.pedalgeeks-wiki.loadbalancer.server.port: "80"
       traefik.http.routers.pedalgeeks-wiki.tls: "true"
       traefik.http.routers.pedalgeeks-wiki.tls.certresolver: "letsencrypt"
-    # configs:
-    #  - source: pedalgeeks-LocalSettings.php
-    #    target: /var/www/html/LocalSettings.php
+    configs:
+      - source: pedalgeeks-LocalSettings.php
+        target: /var/www/html/LocalSettings.php
 
   database:
     image: mariadb
@@ -49,6 +49,6 @@ networks:
   traefik-swarm:
     external: true
 
-# configs:
-#  pedalgeeks-LocalSettings.php:
-#    external: true
+configs:
+  pedalgeeks-LocalSettings.php:
+    external: true
