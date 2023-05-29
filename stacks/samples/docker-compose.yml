@@ -3,13 +3,16 @@ version: '3.1'
 services:
 
   httpd:
-    image: httpd:2.4
-    restart: always
+    image: filebrowser/filebrowser
+    restart: unless-stopped
     networks:
       - default
       - traefik-swarm
     volumes:
-      - /zfs-pool/samples:/usr/local/apache2/htdocs/
+      - /zfs-pool/samples:/srv
+      - /home/mark/Projects/portainer-stacks/stacks/samples/filebrowser.db:/database.db
+    security-opt:
+      - no-new-privileges:true
     labels:
       traefik.enable: "true"
       traefik.http.routers.samples-http.entrypoints: "web"
