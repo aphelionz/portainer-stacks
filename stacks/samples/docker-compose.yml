@@ -11,7 +11,7 @@ services:
     volumes:
       - /zfs-pool/samples:/srv
       - /home/mark/Projects/portainer-stacks/stacks/samples/filebrowser.db:/database.db
-    security-opt:
+    security_opt:
       - no-new-privileges:true
     labels:
       traefik.enable: "true"
