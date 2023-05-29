@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+
+  httpd:
+    image: httpd:2.4
+    restart: always
+    networks:
+      - default
+      - traefik-swarm
+    volumes:
+      - /zfs-pool/samples:/usr/local/apache2/htdocs/
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.samples-http.entrypoints: "web"
+      traefik.http.routers.samples-http.rule: "Host(`samples.mrh.io`)"
+      traefik.http.routers.samples-http.middlewares: "pedalgeeks-wiki-https"
+      traefik.http.middlewares.samples.redirectscheme.scheme: "https"
+
+      traefik.http.routers.samples.rule: "Host(`samples.mrh.io`)"
+      traefik.http.routers.samples.entryPoints: "websecure"
+      traefik.http.routers.samples.service: "samples"
+      traefik.http.services.samples.loadbalancer.server.port: "80"
+      traefik.http.routers.samples.tls: "true"
+      traefik.http.routers.samples.tls.certresolver: "letsencrypt"
+
+networks:
+  traefik-swarm:
+    external: true
