@@ -17,7 +17,7 @@ services:
 
       traefik.http.routers.lakeboone.rule: "Host(`lakeboone.mrh.io`)"
       traefik.http.routers.lakeboone.entryPoints: "websecure"
-      traefik.http.routers.lakeboone.service: "samples"
+      traefik.http.routers.lakeboone.service: "lakeboone"
       traefik.http.services.lakeboone.loadbalancer.server.port: "80"
       traefik.http.routers.lakeboone.tls: "true"
       traefik.http.routers.lakeboone.tls.certresolver: "letsencrypt"
