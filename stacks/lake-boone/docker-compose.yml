@@ -21,6 +21,9 @@ services:
       traefik.http.services.lakeboone.loadbalancer.server.port: "3000"
       traefik.http.routers.lakeboone.tls: "true"
       traefik.http.routers.lakeboone.tls.certresolver: "letsencrypt"
+    configs:
+      - source: lakeboone-env-local
+        target: /home/node/app/.env.local
 
 networks:
   traefik-swarm:
