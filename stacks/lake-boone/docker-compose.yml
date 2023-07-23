@@ -12,7 +12,7 @@ services:
       traefik.enable: "true"
       traefik.http.routers.lakeboone-http.entrypoints: "web"
       traefik.http.routers.lakeboone-http.rule: "Host(`lakeboone.mrh.io`)"
-      traefik.http.routers.lakeboone-http.middlewares: "lakeboone-https"
+      traefik.http.routers.lakeboone-http.middlewares: "lakeboone"
       traefik.http.middlewares.lakeboone.redirectscheme.scheme: "https"
 
       traefik.http.routers.lakeboone.rule: "Host(`lakeboone.mrh.io`)"
