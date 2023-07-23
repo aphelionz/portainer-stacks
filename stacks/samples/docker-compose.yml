@@ -17,7 +17,7 @@ services:
       traefik.enable: "true"
       traefik.http.routers.samples-http.entrypoints: "web"
       traefik.http.routers.samples-http.rule: "Host(`samples.mrh.io`)"
-      traefik.http.routers.samples-http.middlewares: "pedalgeeks-wiki-https"
+      traefik.http.routers.samples-http.middlewares: "samples"
       traefik.http.middlewares.samples.redirectscheme.scheme: "https"
 
       traefik.http.routers.samples.rule: "Host(`samples.mrh.io`)"
