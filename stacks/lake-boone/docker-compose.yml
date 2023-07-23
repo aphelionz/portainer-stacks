@@ -28,3 +28,7 @@ services:
 networks:
   traefik-swarm:
     external: true
+
+configs:
+  lakeboone-env-local:
+    external: true
