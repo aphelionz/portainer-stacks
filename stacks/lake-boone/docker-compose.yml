@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   httpd:
-    image: aphelionz/lake-boone
+    image: aphelionz/lakeboone
     restart: unless-stopped
     networks:
       - default
