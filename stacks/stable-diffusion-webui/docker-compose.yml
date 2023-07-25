@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+
+  httpd:
+    image: goolashe/automatic1111-sd-webui
+    restart: unless-stopped
+    networks:
+      - default
+      - traefik-swarm
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.sd-webui-http.entrypoints: "web"
+      traefik.http.routers.sd-webui-http.rule: "Host(`sd.mrh.io`)"
+      traefik.http.routers.sd-webui-http.middlewares: "sd-webup-https"
+      traefik.http.middlewares.sd-webui.redirectscheme.scheme: "https"
+
+      traefik.http.routers.sd-webui.rule: "Host(`sd.mrh.io`)"
+      traefik.http.routers.sd-webui.entryPoints: "websecure"
+      traefik.http.routers.sd-webui.service: "sd-webui"
+      traefik.http.services.sd-webui.loadbalancer.server.port: "7860"
+      traefik.http.routers.sd-webui.tls: "true"
+      traefik.http.routers.sd-webui.tls.certresolver: "letsencrypt"
+
+networks:
+  traefik-swarm:
+    external: true
