@@ -4,6 +4,13 @@ services:
 
   httpd:
     image: goolashe/automatic1111-sd-webui
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
     restart: unless-stopped
     networks:
       - default
