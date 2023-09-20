@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+
+  httpd:
+    image: aphelionz/sarkin2000:latest
+    restart: unless-stopped
+    networks:
+      - default
+      - traefik-swarm
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.sarkin2000-http.entrypoints: "web"
+      traefik.http.routers.sarkin2000-http.rule: "Host(`2000.jonsarkin.com`)"
+      traefik.http.routers.sarkin2000-http.middlewares: "sarkin2000"
+      traefik.http.middlewares.sarkin2000.redirectscheme.scheme: "https"
+
+      traefik.http.routers.sarkin2000.rule: "Host(`2000.jonsarkin.com`)"
+      traefik.http.routers.sarkin2000.entryPoints: "websecure"
+      traefik.http.routers.sarkin2000.service: "sarkin2000"
+      traefik.http.services.sarkin2000.loadbalancer.server.port: "80"
+      traefik.http.routers.sarkin2000.tls: "true"
+      traefik.http.routers.sarkin2000.tls.certresolver: "letsencrypt"
+
+networks:
+  traefik-swarm:
+    external: true
