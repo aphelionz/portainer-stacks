@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+
+  httpd:
+    image: cturra/ntp
+    restart: unless-stopped
+    networks:
+      - bridge
+      - traefik-swarm
+    environment:
+      - TZ=America/New_York
+      - LOG_LEVEL=0
+      - NTP_SERVERS=clock.uregina.ca
+      - NOCLIENTLOG=true
+    labels:
+      traefik.http.routers.lakeboone.rule: "Host(`ntp.mrh.io`)"
+      traefik.http.routers.lakeboone.entryPoints: "ntp"
+      traefik.http.routers.lakeboone.service: "ntp"
+      traefik.http.services.lakeboone.loadbalancer.server.port: "123"
+
+networks:
+  traefik-swarm:
+    external: true
+  bridge:
+    external: true
