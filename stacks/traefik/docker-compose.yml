@@ -14,11 +14,13 @@ services:
     environment:
       - DREAMHOST_API_KEY
     networks:
+      - docker_gwbridge
       - traefik
     ports:
       - "8080:8080"
       - "80:80"
       - "443:443"
+      - "123:123/udp"
     deploy:
       placement:
         constraints:
@@ -29,3 +31,7 @@ services:
       - /etc/traefik.toml:/etc/traefik/traefik.toml
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/letsencrypt/acme.json:/acme.json
+
+networks:
+  docker_gwbridge:
+    external: true

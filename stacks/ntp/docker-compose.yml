@@ -2,25 +2,22 @@ version: '3.3'
 
 services:
 
-  httpd:
+  chrony:
     image: cturra/ntp
     restart: unless-stopped
     networks:
-      - bridge
       - traefik-swarm
     environment:
       - TZ=America/New_York
       - LOG_LEVEL=0
-      - NTP_SERVERS=clock.uregina.ca
+      - NTP_SERVERS=clock.uregina.ca,ntp1a.versadns.com
       - NOCLIENTLOG=true
     labels:
-      traefik.http.routers.lakeboone.rule: "Host(`ntp.mrh.io`)"
-      traefik.http.routers.lakeboone.entryPoints: "ntp"
-      traefik.http.routers.lakeboone.service: "ntp"
-      traefik.http.services.lakeboone.loadbalancer.server.port: "123"
+      traefik.enable: "true"
+      traefik.udp.routers.ntp.entrypoints: ntp
+      traefik.udp.routers.ntp.service: ntp
+      traefik.udp.services.ntp.loadbalancer.server.port: 123
 
 networks:
   traefik-swarm:
-    external: true
-  bridge:
     external: true
