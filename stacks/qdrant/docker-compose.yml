@@ -21,6 +21,7 @@ services:
       - QDRANT_COLLECTION=omeka_items
     volumes:
       - ./.hf_cache:/app/.hf_cache
+      - ./.ocr_cache.json:/app/.ocr_cache.json
     depends_on:
       - qdrant
     deploy:
