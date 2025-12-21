@@ -1,11 +1,5 @@
 version: "3.5"
 
-networks:
-  traefik:
-    driver: overlay
-    attachable: true
-    name: traefik-swarm
-
 services:
   traefik:
     image: traefik:v2.11.32
@@ -33,5 +27,9 @@ services:
       - /etc/letsencrypt/acme.json:/acme.json
 
 networks:
+  traefik:
+    driver: overlay
+    attachable: true
+    name: traefik-swarm
   docker_gwbridge:
     external: true
