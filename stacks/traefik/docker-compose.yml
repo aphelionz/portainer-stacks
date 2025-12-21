@@ -8,7 +8,7 @@ networks:
 
 services:
   traefik:
-    image: traefik:v2.10
+    image: traefik:v2.11.32
     restart: always
     command: ["traefik"]
     environment:
