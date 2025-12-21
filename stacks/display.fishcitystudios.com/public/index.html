@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FIRST LIGHT — Fish City Studios</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #0b0b0b;
+        --ink-muted: rgba(11, 11, 11, 0.65);
+        --paper: #f7f4ee;
+        --accent: #ff6a00;
+        --accent-soft: rgba(255, 106, 0, 0.15);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(circle at 20% 20%, rgba(255, 106, 0, 0.25), transparent 45%),
+          radial-gradient(circle at 85% 10%, rgba(0, 0, 0, 0.06), transparent 40%),
+          linear-gradient(135deg, #f8f4ed 0%, #f1ece2 50%, #f9f5ef 100%);
+        color: var(--ink);
+        font-family: "Georgia", "Garamond", "Times New Roman", serif;
+        letter-spacing: 0.01em;
+      }
+
+      main {
+        width: min(880px, 92vw);
+        padding: clamp(32px, 6vw, 72px);
+        border: 1px solid rgba(11, 11, 11, 0.08);
+        border-radius: 28px;
+        background: rgba(247, 244, 238, 0.86);
+        box-shadow: 0 30px 80px rgba(11, 11, 11, 0.12);
+        backdrop-filter: blur(6px);
+        text-align: center;
+      }
+
+      .eyebrow {
+        font-size: clamp(14px, 2.2vw, 18px);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: var(--ink-muted);
+      }
+
+      h1 {
+        margin: 18px 0 10px;
+        font-size: clamp(42px, 8vw, 76px);
+        font-weight: 700;
+      }
+
+      .cta {
+        margin: 12px 0 28px;
+        font-size: clamp(22px, 3.5vw, 34px);
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      .qr {
+        margin: 24px auto 18px;
+        width: min(280px, 70vw);
+        aspect-ratio: 1 / 1;
+        padding: 18px;
+        border-radius: 24px;
+        background: white;
+        border: 3px solid var(--accent);
+        box-shadow: 0 18px 40px rgba(11, 11, 11, 0.15);
+        display: grid;
+        place-items: center;
+      }
+
+      .qr img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .hint {
+        margin: 0;
+        font-size: clamp(14px, 2.4vw, 18px);
+        color: var(--ink-muted);
+      }
+
+      @media (max-width: 540px) {
+        main {
+          padding: 28px 22px;
+        }
+
+        .eyebrow {
+          letter-spacing: 0.2em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="eyebrow">FIRST LIGHT</div>
+      <h1>Fish City Studios</h1>
+      <div class="cta">Scan to book a private viewing</div>
+      <div class="qr">
+        <img src="qr-placeholder.svg" alt="QR code placeholder" />
+      </div>
+      <p class="hint">display.fishcitystudios.com</p>
+    </main>
+  </body>
+</html>

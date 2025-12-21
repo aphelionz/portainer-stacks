@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+
+  httpd:
+    image: nginx:alpine
+    restart: unless-stopped
+    networks:
+      - default
+      - traefik-swarm
+    volumes:
+      - ./public:/usr/share/nginx/html:ro
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.display-http.entrypoints: "web"
+      traefik.http.routers.display-http.rule: "Host(`display.fishcitystudios.com`)"
+      traefik.http.routers.display-http.middlewares: "display-https"
+      traefik.http.middlewares.display-https.redirectscheme.scheme: "https"
+
+      traefik.http.routers.display.rule: "Host(`display.fishcitystudios.com`)"
+      traefik.http.routers.display.entryPoints: "websecure"
+      traefik.http.routers.display.service: "display"
+      traefik.http.services.display.loadbalancer.server.port: "80"
+      traefik.http.routers.display.tls: "true"
+      traefik.http.routers.display.tls.certresolver: "letsencrypt"
+
+networks:
+  traefik-swarm:
+    external: true
