@@ -14,7 +14,6 @@ services:
       - "8080:8080"
       - "80:80"
       - "443:443"
-      - "123:123/udp"
     deploy:
       placement:
         constraints:
@@ -22,7 +21,7 @@ services:
           # as the node with it has the volume for the certificates
           - node.labels.traefik-public.traefik-public-certificates == true
     volumes:
-      - /etc/traefik.toml:/etc/traefik/traefik.toml
+      - ./traefik.toml:/etc/traefik/traefik.toml:ro
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/letsencrypt/acme.json:/acme.json
 
