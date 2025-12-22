@@ -5,8 +5,6 @@ services:
     image: traefik:v2.11.32
     restart: always
     command: ["traefik"]
-    environment:
-      - DREAMHOST_API_KEY
     networks:
       - docker_gwbridge
       - traefik

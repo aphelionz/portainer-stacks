@@ -20,15 +20,6 @@
     # used during the challenge
     entryPoint = "web"
 
-[certificatesResolvers.dreamhost.acme]
-  email = "mark@mrh.io"
-  storage = "/acme-dreamhost.json"
-
-  [certificatesResolvers.dreamhost.acme.dnsChallenge]
-    provider = "dreamhost"
-    resolvers = ["162.159.26.14", "162.159.26.81", "162.159.27.84"]
-
-
 ################################################################
 # Traefik logs configuration
 ################################################################
