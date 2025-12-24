@@ -11,9 +11,7 @@ services:
       - qdrant_data:/qdrant/storage
 
   clip-api:
-    build:
-      context: .
-      dockerfile: Dockerfile.api
+    image: aphelionz/sarkin-clip-api
     container_name: clip-api
     restart: unless-stopped
     networks:
