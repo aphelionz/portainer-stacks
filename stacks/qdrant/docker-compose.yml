@@ -10,6 +10,41 @@ services:
     volumes:
       - qdrant_data:/qdrant/storage
 
+  clip-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: clip-api
+    restart: unless-stopped
+    networks:
+      - default
+      - traefik
+    environment:
+      - QDRANT_URL=http://qdrant:6333
+      - QDRANT_COLLECTION=omeka_items
+      - VECTOR_NAME=visual_vec
+      - DEFAULT_LIMIT=50
+      # - QDRANT_API_KEY=...
+      # - DEFAULT_SCORE_THRESHOLD=0.2
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.similar-http.entrypoints: "web"
+      traefik.http.routers.similar-http.rule: "Host(`similar.jonsarkin.com`)"
+      traefik.http.routers.similar-http.middlewares: "similar-https"
+      traefik.http.middlewares.similar-https.redirectscheme.scheme: "https"
+
+      traefik.http.routers.similar.rule: "Host(`similar.jonsarkin.com`)"
+      traefik.http.routers.similar.entryPoints: "websecure"
+      traefik.http.routers.similar.service: "similar"
+      traefik.http.services.similar.loadbalancer.server.port: "8000"
+      traefik.http.routers.similar.tls: "true"
+      traefik.http.routers.similar.tls.certresolver: "letsencrypt"
+    ports:
+      - "8000:8000"
+    depends_on:
+      qdrant:
+        condition: service_healthy
+
   ingest:
     image: aphelionz/sarkin-clip-indexer
     container_name: omeka-ingest
@@ -36,3 +71,7 @@ volumes:
   qdrant_data:
     external: true
     name: clip-qdrant-dev_qdrant_data
+
+networks:
+  traefik:
+    external: true
