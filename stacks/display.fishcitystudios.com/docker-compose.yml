@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     networks:
       - default
-      - traefik-swarm
+      - traefik
     volumes:
       - ./public:/usr/share/nginx/html:ro
     labels:
@@ -25,5 +25,5 @@ services:
       traefik.http.routers.display.tls.certresolver: "letsencrypt"
 
 networks:
-  traefik-swarm:
+  traefik:
     external: true

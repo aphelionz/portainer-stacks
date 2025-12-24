@@ -66,5 +66,5 @@
   endpoint = "unix:///var/run/docker.sock"
   defaultRule = "Host(`{{ normalize .Name }}`)"
   exposedByDefault = false
-  network = "traefik-swarm"
+  network = "traefik"
   constraints = ""

@@ -6,7 +6,6 @@ services:
     restart: always
     command: ["traefik"]
     networks:
-      - docker_gwbridge
       - traefik
     ports:
       - "10.10.0.1:8080:8080"
@@ -25,8 +24,5 @@ services:
 
 networks:
   traefik:
-    driver: overlay
-    attachable: true
-    name: traefik-swarm
-  docker_gwbridge:
-    external: true
+    driver: bridge
+    name: traefik

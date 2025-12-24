@@ -38,7 +38,7 @@ services:
       - sym:/sym
     networks:
       - default
-      - traefik-swarm
+      - traefik
     environment:
       #- PUID=1000
       #- PGID=1000
@@ -95,7 +95,7 @@ services:
       traefik.http.routers.lychee.tls.certresolver: "letsencrypt"
       
 networks:
-  traefik-swarm:
+  traefik:
     external: true
 
 volumes:
