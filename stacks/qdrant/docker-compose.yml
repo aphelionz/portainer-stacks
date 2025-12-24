@@ -37,11 +37,8 @@ services:
       traefik.http.services.similar.loadbalancer.server.port: "8000"
       traefik.http.routers.similar.tls: "true"
       traefik.http.routers.similar.tls.certresolver: "letsencrypt"
-    ports:
-      - "8000:8000"
     depends_on:
-      qdrant:
-        condition: service_healthy
+      - qdrant
 
   ingest:
     image: aphelionz/sarkin-clip-indexer
