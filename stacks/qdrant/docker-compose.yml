@@ -19,12 +19,16 @@ services:
       - default
       - traefik
     environment:
-      - QDRANT_URL=http://qdrant:6333
-      - QDRANT_COLLECTION=omeka_items
-      - VECTOR_NAME=visual_vec
-      - DEFAULT_LIMIT=50
-      # - QDRANT_API_KEY=...
-      # - DEFAULT_SCORE_THRESHOLD=0.2
+      # App defaults: QDRANT_URL=http://hyphae:6333, QDRANT_COLLECTION=omeka_items,
+      # VECTOR_NAME=visual_vec, SIMILAR_ENABLED=true
+      - QDRANT_URL=${QDRANT_URL:-http://qdrant:6333}
+      - QDRANT_COLLECTION=${QDRANT_COLLECTION:-omeka_items}
+      - VECTOR_NAME=${VECTOR_NAME:-visual_vec}
+      - SIMILAR_ENABLED=${SIMILAR_ENABLED:-true}
+      # Optional:
+      # - QDRANT_API_KEY=${QDRANT_API_KEY}
+      # - DEFAULT_LIMIT=${DEFAULT_LIMIT}
+      # - DEFAULT_SCORE_THRESHOLD=${DEFAULT_SCORE_THRESHOLD}
     labels:
       traefik.enable: "true"
       traefik.http.routers.similar-http.entrypoints: "web"
