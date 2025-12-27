@@ -35,9 +35,13 @@ services:
       traefik.http.routers.similar.rule: "Host(`similar.jonsarkin.com`)"
       traefik.http.routers.similar.entryPoints: "websecure"
       traefik.http.routers.similar.service: "similar"
+      traefik.http.routers.similar.middlewares: "similar-ratelimit"
       traefik.http.services.similar.loadbalancer.server.port: "8000"
       traefik.http.routers.similar.tls: "true"
       traefik.http.routers.similar.tls.certresolver: "letsencrypt"
+      traefik.http.middlewares.similar-ratelimit.ratelimit.average: "120"
+      traefik.http.middlewares.similar-ratelimit.ratelimit.period: "1m"
+      traefik.http.middlewares.similar-ratelimit.ratelimit.burst: "30"
     depends_on:
       - qdrant
 
