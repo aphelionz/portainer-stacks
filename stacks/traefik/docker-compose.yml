@@ -5,6 +5,13 @@ services:
     image: traefik:v2.11.32
     restart: always
     command: ["traefik"]
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.traefik.entrypoints: "traefik"
+      traefik.http.routers.traefik.rule: "PathPrefix(`/api`) || PathPrefix(`/dashboard`)"
+      traefik.http.routers.traefik.service: "api@internal"
+      traefik.http.routers.traefik.middlewares: "traefik-ipwhitelist"
+      traefik.http.middlewares.traefik-ipwhitelist.ipwhitelist.sourcerange: "10.10.0.0/24"
     networks:
       - traefik
     ports:
@@ -19,7 +26,7 @@ services:
           - node.labels.traefik-public.traefik-public-certificates == true
     volumes:
       - ./traefik.toml:/etc/traefik/traefik.toml:ro
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/letsencrypt/acme.json:/acme.json
 
 networks:
