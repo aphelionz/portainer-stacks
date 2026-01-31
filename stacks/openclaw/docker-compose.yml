@@ -1,0 +1,80 @@
+name: openclaw
+
+services:
+  openclaw-gateway:
+    image: ${OPENCLAW_IMAGE:-openclaw:local}
+    container_name: openclaw-gateway
+    restart: unless-stopped
+    networks:
+      - openclaw_public
+      - openclaw_private
+    ports:
+      - "127.0.0.1:${OPENCLAW_GATEWAY_PORT:-18789}:${OPENCLAW_GATEWAY_PORT:-18789}"
+    environment:
+      - OPENCLAW_GATEWAY_TOKEN=${OPENCLAW_GATEWAY_TOKEN}
+      - OPENCLAW_GATEWAY_BIND=${OPENCLAW_GATEWAY_BIND:-loopback}
+      - OPENCLAW_GATEWAY_PORT=${OPENCLAW_GATEWAY_PORT:-18789}
+      - OPENCLAW_PRIMARY_MODEL=${OPENCLAW_PRIMARY_MODEL}
+      - BRAVE_API_KEY=${BRAVE_API_KEY}
+    volumes:
+      - ${OPENCLAW_CONFIG_DIR}:/home/node/.openclaw
+      - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.openclaw/workspace
+    command:
+      - gateway
+      - --bind
+      - ${OPENCLAW_GATEWAY_BIND:-loopback}
+      - --port
+      - ${OPENCLAW_GATEWAY_PORT:-18789}
+    depends_on:
+      - ollama
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    user: "1000:1000"
+
+  openclaw-cli:
+    image: ${OPENCLAW_IMAGE:-openclaw:local}
+    container_name: openclaw-cli
+    restart: unless-stopped
+    networks:
+      - openclaw_public
+    environment:
+      - OPENCLAW_GATEWAY_TOKEN=${OPENCLAW_GATEWAY_TOKEN}
+      - OPENCLAW_GATEWAY_BIND=${OPENCLAW_GATEWAY_BIND:-loopback}
+      - OPENCLAW_GATEWAY_PORT=${OPENCLAW_GATEWAY_PORT:-18789}
+      - OPENCLAW_PRIMARY_MODEL=${OPENCLAW_PRIMARY_MODEL}
+      - BRAVE_API_KEY=${BRAVE_API_KEY}
+    volumes:
+      - ${OPENCLAW_CONFIG_DIR}:/home/node/.openclaw
+      - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.openclaw/workspace
+    entrypoint: ["sh", "-c"]
+    command: ["sleep infinity"]
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    user: "1000:1000"
+
+  ollama:
+    image: ${OLLAMA_IMAGE}
+    container_name: ollama
+    restart: unless-stopped
+    networks:
+      - openclaw_private
+    volumes:
+      - ${OLLAMA_DATA_DIR}:/root/.ollama
+    device_requests:
+      - driver: nvidia
+        count: 1
+        capabilities: ["gpu"]
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+networks:
+  openclaw_public:
+
+  openclaw_private:
+    internal: true

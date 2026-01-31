@@ -1,0 +1,60 @@
+{
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "${OPENCLAW_GATEWAY_TOKEN}"
+    }
+  },
+  "models": {
+    "providers": {
+      "ollama": {
+        "baseUrl": "http://ollama:11434/v1",
+        "apiKey": "ollama-local",
+        "api": "openai-completions"
+      }
+    }
+  },
+  "tools": {
+    "profile": "minimal",
+    "allow": [
+      "group:web"
+    ],
+    "deny": [
+      "group:fs",
+      "group:runtime",
+      "group:ui",
+      "group:automation",
+      "group:messaging",
+      "group:nodes",
+      "group:memory"
+    ],
+    "web": {
+      "fetch": {
+        "enabled": true
+      },
+      "search": {
+        "enabled": true
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "workspace": "~/.openclaw/workspace",
+      "model": {
+        "primary": "${OPENCLAW_PRIMARY_MODEL}"
+      }
+    },
+    "list": [
+      {
+        "id": "gallery_ed",
+        "default": true,
+        "workspace": "~/.openclaw/workspace"
+      },
+      {
+        "id": "admin",
+        "workspace": "~/.openclaw/workspace"
+      }
+    ]
+  }
+}
