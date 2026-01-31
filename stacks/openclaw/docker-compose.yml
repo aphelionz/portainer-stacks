@@ -12,7 +12,6 @@ services:
       - "127.0.0.1:${OPENCLAW_GATEWAY_PORT:-18789}:${OPENCLAW_GATEWAY_PORT:-18789}"
     environment:
       - OPENCLAW_GATEWAY_TOKEN=${OPENCLAW_GATEWAY_TOKEN}
-      - OPENCLAW_GATEWAY_BIND=${OPENCLAW_GATEWAY_BIND:-loopback}
       - OPENCLAW_GATEWAY_PORT=${OPENCLAW_GATEWAY_PORT:-18789}
       - OPENCLAW_PRIMARY_MODEL=${OPENCLAW_PRIMARY_MODEL}
       - BRAVE_API_KEY=${BRAVE_API_KEY}
@@ -22,7 +21,7 @@ services:
     command:
       - gateway
       - --bind
-      - ${OPENCLAW_GATEWAY_BIND:-loopback}
+      - 0.0.0.0
       - --port
       - ${OPENCLAW_GATEWAY_PORT:-18789}
     depends_on:
@@ -41,7 +40,6 @@ services:
       - openclaw_public
     environment:
       - OPENCLAW_GATEWAY_TOKEN=${OPENCLAW_GATEWAY_TOKEN}
-      - OPENCLAW_GATEWAY_BIND=${OPENCLAW_GATEWAY_BIND:-loopback}
       - OPENCLAW_GATEWAY_PORT=${OPENCLAW_GATEWAY_PORT:-18789}
       - OPENCLAW_PRIMARY_MODEL=${OPENCLAW_PRIMARY_MODEL}
       - BRAVE_API_KEY=${BRAVE_API_KEY}

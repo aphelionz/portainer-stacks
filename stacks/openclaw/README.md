@@ -8,7 +8,7 @@
 - Ollama runs on an internal-only network (no internet egress).
 
 ## Local access (SSH tunnel)
-The gateway binds only to host loopback (`127.0.0.1:${OPENCLAW_GATEWAY_PORT}`).
+The gateway is published only on host loopback (`127.0.0.1:${OPENCLAW_GATEWAY_PORT}`).
 
 ```sh
 ssh -L 18789:127.0.0.1:18789 user@host
