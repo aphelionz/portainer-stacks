@@ -68,10 +68,13 @@ services:
       - openclaw_private
     volumes:
       - ${OLLAMA_DATA_DIR}:/root/.ollama
-    device_requests:
-      - driver: nvidia
-        count: 1
-        capabilities: ["gpu"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: ["gpu"]
     security_opt:
       - no-new-privileges:true
     cap_drop:

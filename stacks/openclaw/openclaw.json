@@ -6,6 +6,30 @@
       "token": "${OPENCLAW_GATEWAY_TOKEN}"
     }
   },
+  "logging": {
+    "redactSensitive": "tools"
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "messages": {
+    "groupChat": {
+      "historyLimit": 50
+    }
+  },
+  "channels": {
+    "defaults": {
+      "groupPolicy": "allowlist"
+    },
+    "signal": {
+      "enabled": false,
+      "dmPolicy": "pairing",
+      "allowFrom": [],
+      "groupPolicy": "allowlist",
+      "groupAllowFrom": [],
+      "configWrites": false
+    }
+  },
   "models": {
     "providers": {
       "ollama": {
@@ -43,17 +67,34 @@
       "workspace": "~/.openclaw/workspace",
       "model": {
         "primary": "${OPENCLAW_PRIMARY_MODEL}"
+      },
+      "sandbox": {
+        "mode": "all",
+        "scope": "agent",
+        "workspaceAccess": "ro"
       }
     },
     "list": [
       {
         "id": "gallery_ed",
         "default": true,
-        "workspace": "~/.openclaw/workspace"
+        "workspace": "~/.openclaw/workspace",
+        "groupChat": {
+          "mentionPatterns": [
+            "@openclaw",
+            "openclaw"
+          ]
+        }
       },
       {
         "id": "admin",
-        "workspace": "~/.openclaw/workspace"
+        "workspace": "~/.openclaw/workspace",
+        "groupChat": {
+          "mentionPatterns": [
+            "@openclaw",
+            "openclaw"
+          ]
+        }
       }
     ]
   }
