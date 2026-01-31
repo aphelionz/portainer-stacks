@@ -18,6 +18,9 @@ services:
     volumes:
       - ${OPENCLAW_CONFIG_DIR}:/home/node/.openclaw
       - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.openclaw/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    group_add:
+      - "${OPENCLAW_DOCKER_GID}"
     command:
       - gateway
       - --bind
@@ -46,6 +49,9 @@ services:
     volumes:
       - ${OPENCLAW_CONFIG_DIR}:/home/node/.openclaw
       - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.openclaw/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    group_add:
+      - "${OPENCLAW_DOCKER_GID}"
     entrypoint: ["sh", "-c"]
     command: ["sleep infinity"]
     security_opt:
