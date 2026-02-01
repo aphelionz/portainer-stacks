@@ -22,11 +22,15 @@ services:
     group_add:
       - "${OPENCLAW_DOCKER_GID}"
     command:
-      - gateway
-      - --bind
-      - 0.0.0.0
-      - --port
-      - ${OPENCLAW_GATEWAY_PORT:-18789}
+      [
+        "node",
+        "dist/index.js",
+        "gateway",
+        "--bind",
+        "${OPENCLAW_GATEWAY_BIND:-lan}",
+        "--port",
+        "${OPENCLAW_GATEWAY_PORT:-18789}",
+      ]
     depends_on:
       - ollama
     security_opt:
