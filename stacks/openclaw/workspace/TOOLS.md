@@ -9,6 +9,7 @@
 - Every nontrivial external claim must include a citation (source + link and/or short snippet).
 - Do not search for personal/private details about individuals.
 - Avoid collecting or repeating sensitive information.
+- If web search is unavailable, say SEARCH_UNAVAILABLE and include a brief reason on the next line.
 
 ## When to search
 - Competitive intel, venue details, event listings, press mentions, market pricing norms (with citations).
