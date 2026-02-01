@@ -39,6 +39,26 @@ services:
       - ALL
     user: "1000:1000"
 
+  openclaw-caddy:
+    image: caddy:2.8.4
+    container_name: openclaw-caddy
+    restart: unless-stopped
+    networks:
+      - openclaw_public
+    ports:
+      - "${OPENCLAW_WG_HOST_IP:-10.10.0.1}:${OPENCLAW_HTTPS_PORT:-18443}:${OPENCLAW_HTTPS_PORT:-18443}"
+    environment:
+      - OPENCLAW_GATEWAY_HOSTNAME=${OPENCLAW_GATEWAY_HOSTNAME:-hyphae}
+      - OPENCLAW_HTTPS_PORT=${OPENCLAW_HTTPS_PORT:-18443}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
   openclaw-cli:
     image: ${OPENCLAW_IMAGE:-openclaw:local}
     container_name: openclaw-cli
@@ -89,3 +109,7 @@ networks:
 
   openclaw_private:
     internal: true
+
+volumes:
+  caddy_data:
+  caddy_config:
