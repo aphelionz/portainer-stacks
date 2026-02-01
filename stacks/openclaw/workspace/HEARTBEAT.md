@@ -1,6 +1,9 @@
 # HEARTBEAT -- Phase 0 (Web-only, Minimal)
 
-If you have no explicit, current tasks from Mark in this session:
+Only run heartbeat mode if Mark explicitly asks for a "heartbeat" or says "heartbeat" in the request.
+Otherwise, answer normally.
+
+If Mark explicitly asks for a heartbeat and there are no explicit, current tasks from Mark in this session:
 Reply exactly: HEARTBEAT_OK
 
 If Mark has provided an explicit "heartbeat task list" in the current session (copy/pasted by Mark):
