@@ -8,8 +8,17 @@ services:
     networks:
       - openclaw_public
       - openclaw_private
+      - traefik
     ports:
       - "${OPENCLAW_GATEWAY_HOST_IP:-127.0.0.1}:${OPENCLAW_GATEWAY_PORT:-18789}:${OPENCLAW_GATEWAY_PORT:-18789}"
+    labels:
+      traefik.enable: "${OPENCLAW_TRAEFIK_ENABLE:-false}"
+      traefik.http.routers.openclaw.rule: "Host(`${OPENCLAW_TRAEFIK_HOST:-hyphae}`)"
+      traefik.http.routers.openclaw.entrypoints: "${OPENCLAW_TRAEFIK_ENTRYPOINT:-websecure}"
+      traefik.http.routers.openclaw.service: "openclaw"
+      traefik.http.services.openclaw.loadbalancer.server.port: "${OPENCLAW_GATEWAY_PORT:-18789}"
+      traefik.http.routers.openclaw.tls: "true"
+      traefik.http.routers.openclaw.tls.certresolver: "${OPENCLAW_TRAEFIK_CERTRESOLVER:-letsencrypt}"
     environment:
       - OPENCLAW_GATEWAY_TOKEN=${OPENCLAW_GATEWAY_TOKEN}
       - OPENCLAW_GATEWAY_PORT=${OPENCLAW_GATEWAY_PORT:-18789}
@@ -38,26 +47,6 @@ services:
     cap_drop:
       - ALL
     user: "1000:1000"
-
-  openclaw-caddy:
-    image: caddy:2.8.4
-    container_name: openclaw-caddy
-    restart: unless-stopped
-    networks:
-      - openclaw_public
-    ports:
-      - "${OPENCLAW_WG_HOST_IP:-10.10.0.1}:${OPENCLAW_HTTPS_PORT:-18443}:${OPENCLAW_HTTPS_PORT:-18443}"
-    environment:
-      - OPENCLAW_GATEWAY_HOSTNAME=${OPENCLAW_GATEWAY_HOSTNAME:-hyphae}
-      - OPENCLAW_HTTPS_PORT=${OPENCLAW_HTTPS_PORT:-18443}
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
-    security_opt:
-      - no-new-privileges:true
-    cap_drop:
-      - ALL
 
   openclaw-cli:
     image: ${OPENCLAW_IMAGE:-openclaw:local}
@@ -110,6 +99,5 @@ networks:
   openclaw_private:
     internal: true
 
-volumes:
-  caddy_data:
-  caddy_config:
+  traefik:
+    external: true
