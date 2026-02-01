@@ -12,8 +12,9 @@
 - Sandbox is enabled and requires the host Docker socket to be mounted into the gateway container. This increases the blast radius (Docker socket access is effectively root on the host), so keep the gateway loopback-only and enforce pairing/allowlists before enabling any messaging channels.
 - Signal is preconfigured as disabled with pairing + allowlists; enable it only after you finish Signal-specific setup (signal-cli account + allowlists).
 
-## Local access (SSH tunnel)
-The gateway is published only on host loopback (`127.0.0.1:${OPENCLAW_GATEWAY_PORT}`).
+## Access (loopback or WireGuard)
+By default, the gateway is published only on host loopback (`127.0.0.1:${OPENCLAW_GATEWAY_PORT}`).
+To expose it on WireGuard, set `OPENCLAW_GATEWAY_HOST_IP` to the WG IP (for example `10.10.0.1`).
 
 ```sh
 ssh -L 18789:127.0.0.1:18789 user@host
