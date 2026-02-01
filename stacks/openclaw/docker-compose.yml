@@ -77,6 +77,9 @@ services:
     restart: unless-stopped
     networks:
       - openclaw_private
+    environment:
+      - OLLAMA_KEEP_ALIVE=24h
+      - OLLAMA_MAX_LOADED_MODELS=1
     volumes:
       - ${OLLAMA_DATA_DIR}:/root/.ollama
     deploy:
