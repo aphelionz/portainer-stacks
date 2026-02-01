@@ -23,7 +23,6 @@ services:
       - OPENCLAW_GATEWAY_TOKEN=${OPENCLAW_GATEWAY_TOKEN}
       - OPENCLAW_DOCKER_GID=${OPENCLAW_DOCKER_GID}
       - OPENCLAW_GATEWAY_PORT=${OPENCLAW_GATEWAY_PORT:-18789}
-      - BRAVE_API_KEY=${BRAVE_API_KEY}
     volumes:
       - /usr/bin/docker:/usr/bin/docker:ro
       - /usr/lib/docker/cli-plugins:/usr/lib/docker/cli-plugins:ro
@@ -60,7 +59,6 @@ services:
     environment:
       - OPENCLAW_GATEWAY_TOKEN=${OPENCLAW_GATEWAY_TOKEN}
       - OPENCLAW_GATEWAY_PORT=${OPENCLAW_GATEWAY_PORT:-18789}
-      - BRAVE_API_KEY=${BRAVE_API_KEY}
     volumes:
       - ${OPENCLAW_CONFIG_DIR}:/home/node/.openclaw
       - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.openclaw/workspace
