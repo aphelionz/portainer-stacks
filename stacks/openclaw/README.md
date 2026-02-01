@@ -9,6 +9,7 @@
 - To use models in this stack, you must either:
   - Pre-seed `${OLLAMA_DATA_DIR}` on the host with the required models (for example, by running `ollama pull` on a machine with internet access and then copying the resulting data directory), and mount that directory into the Ollama container; or
   - Temporarily attach the Ollama container to a network with internet egress, run `ollama pull` inside the container to fetch the required models, and then return it to the internal-only network.
+- Workspace bootstrap files (for example `SOUL.md`) live in `stacks/openclaw/workspace/`. Copy them into `${OPENCLAW_WORKSPACE_DIR}` to apply defaults for new sessions.
 - Sandbox is enabled and requires the host Docker socket to be mounted into the gateway container. This increases the blast radius (Docker socket access is effectively root on the host), so keep the gateway loopback-only and enforce pairing/allowlists before enabling any messaging channels.
 - Signal is preconfigured as disabled with pairing + allowlists; enable it only after you finish Signal-specific setup (signal-cli account + allowlists).
 
