@@ -35,7 +35,7 @@
       "ollama": {
         "baseUrl": "http://ollama:11434/v1",
         "apiKey": "ollama-local",
-        "api": "openai-completions"
+        "api": "openai-completions",
         "models": [
           { "id": "llama3.3:latest", "name": "Llama 3.3" }
         ]
