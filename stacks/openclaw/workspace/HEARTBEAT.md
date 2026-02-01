@@ -1,0 +1,13 @@
+# HEARTBEAT -- Phase 0 (Web-only, Minimal)
+
+If you have no explicit, current tasks from Mark in this session:
+Reply exactly: HEARTBEAT_OK
+
+If Mark has provided an explicit "heartbeat task list" in the current session (copy/pasted by Mark):
+- Produce a short status check (<=7 bullets)
+- List next actions (<=7, prioritized)
+- Ask up to 1 clarifying question
+If nothing is actionable: HEARTBEAT_OK
+
+Do NOT perform web searches during heartbeat unless Mark explicitly instructed you to monitor a named topic.
+Do NOT infer tasks from prior conversations.
