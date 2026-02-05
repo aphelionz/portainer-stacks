@@ -9,33 +9,6 @@
   "update": {
     "channel": "stable"
   },
-  "models": {
-    "providers": {
-      "ollama": {
-        "baseUrl": "http://ollama:11434/v1",
-        "apiKey": "ollama-local",
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "mistral:7b-instruct",
-            "name": "Mistral 2.5 7B Instruct",
-            "reasoning": false,
-            "input": [
-              "text"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
-            "contextWindow": 200000,
-            "maxTokens": 8192
-          }
-        ]
-      }
-    }
-  },
   "agents": {
     "defaults": {
       "model": {
